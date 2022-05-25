@@ -1,6 +1,11 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
+ map<CoolingType, pair<int, int>> limit = { { CoolingType::PASSIVE_COOLING, { 0, 35 } },
+{ CoolingType::HI_ACTIVE_COOLING, { 0, 45 } },
+{ CoolingType::MED_ACTIVE_COOLING, { 0, 40 } }
+};
+
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
     return TOO_LOW;
@@ -14,17 +19,13 @@ BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
 std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType)
 {
   std::pair<int, int> breachValues{0,0};
-  switch(coolingType) {
-    case HI_ACTIVE_COOLING:
-      breachValues = {0,45};
-      break;
-    case MED_ACTIVE_COOLING:
-      breachValues = {0,40};
-      break;
-    case PASSIVE_COOLING:
-      breachValues = {0,35};
-      break;
-  }
+    map<CoolingType, pair<int, int>>::iterator it;
+    pair<int, int> PAIR1;
+    it = limit.find(coolingType);
+    if (it == limit.end())
+        printf("Limit Not Found!!");
+    else
+        breachValues = it->second;
   return breachValues;
 }
 
