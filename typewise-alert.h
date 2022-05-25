@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <utility>
+
 typedef enum {
   PASSIVE_COOLING,
   HI_ACTIVE_COOLING,
@@ -27,6 +30,8 @@ typedef struct {
 
 void checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+
+std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType);
 
 void sendToController(BreachType breachType);
 void sendToEmail(BreachType breachType);
