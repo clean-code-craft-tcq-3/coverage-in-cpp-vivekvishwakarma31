@@ -40,3 +40,4 @@ std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType);
 
 void sendToController(BreachType breachType);
 void sendToEmail(BreachType breachType);
+void printOnConsole(std::string message);
