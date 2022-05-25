@@ -11,25 +11,26 @@ BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   return NORMAL;
 }
 
-BreachType classifyTemperatureBreach(
-    CoolingType coolingType, double temperatureInC) {
-  int lowerLimit = 0;
-  int upperLimit = 0;
+std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType)
+{
+  std::pair<int, int> breachValues{0,0};
   switch(coolingType) {
-    case PASSIVE_COOLING:
-      lowerLimit = 0;
-      upperLimit = 35;
-      break;
     case HI_ACTIVE_COOLING:
-      lowerLimit = 0;
-      upperLimit = 45;
+      breachValues = {0,45};
       break;
     case MED_ACTIVE_COOLING:
-      lowerLimit = 0;
-      upperLimit = 40;
+      breachValues = {0,40};
+      break;
+    case PASSIVE_COOLING:
+      breachValues = {0,35};
       break;
   }
-  return inferBreach(temperatureInC, lowerLimit, upperLimit);
+  return breachValues;
+}
+
+BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC) {
+  std::pair<int, int> breachValues = getTemperatureBreachValues(coolingType);
+  return inferBreach(temperatureInC, breachValues.first, breachValues.second);
 }
 
 void checkAndAlert(
