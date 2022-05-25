@@ -2,6 +2,9 @@
 
 #include <string>
 #include <utility>
+#include <iterator>
+#include <map>
+#include <vector>
 
 typedef enum {
   PASSIVE_COOLING,
@@ -27,6 +30,8 @@ typedef struct {
   CoolingType coolingType;
   char brand[48];
 } BatteryCharacter;
+
+extern map<CoolingType, pair<int, int>> temp;
 
 void checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
