@@ -31,7 +31,7 @@ typedef struct {
   char brand[48];
 } BatteryCharacter;
 
-extern map<CoolingType, pair<int, int>> temp;
+extern map<CoolingType, pair<int, int>> limit;
 
 void checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
