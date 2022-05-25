@@ -23,7 +23,7 @@ std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType)
     pair<int, int> PAIR1;
     it = limit.find(coolingType);
     if (it == limit.end())
-        printf("Limit Not Found!!");
+        printOnConsole("Limit Not Found!!");
     else
         breachValues = it->second;
   return breachValues;
@@ -37,37 +37,31 @@ BreachType classifyTemperatureBreach(CoolingType coolingType, double temperature
 void checkAndAlert(
     AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC) {
 
-  BreachType breachType = classifyTemperatureBreach(
-    batteryChar.coolingType, temperatureInC
-  );
-
-  switch(alertTarget) {
-    case TO_CONTROLLER:
-      sendToController(breachType);
-      break;
-    case TO_EMAIL:
-      sendToEmail(breachType);
-      break;
-  }
+  BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
+  std::string alertMessage = (alertTarget == TO_CONTROLLER) ? sendToController(breachType) : sendToEmail(breachType, "a.b@c.com");
+  printOnConsole(alertMessage);
 }
 
-void sendToController(BreachType breachType) {
+std::string sendToController(BreachType breachType) {
   const unsigned short header = 0xfeed;
-  printf("%x : %x\n", header, breachType);
+  std::stringstream controllerMessage;
+  ss<<std::hex<<header<<" : "<<breachType;
+  return controllerMessage.str();
 }
 
-void sendToEmail(BreachType breachType) {
-  const char* recepient = "a.b@c.com";
+std::string sendToEmail(BreachType breachType, std::string recepient)) {
+std::string emailMessage;
   switch(breachType) {
     case TOO_LOW:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too low\n");
+      emailMessage = "To: "+recepient+" .Hi, the temperature is too low";
       break;
     case TOO_HIGH:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too high\n");
-      break;
-    case NORMAL:
+      emailMessage = "To: "+recepient+" .Hi, the temperature is too high";
       break;
   }
+  return emailMessage;
+}
+void printOnConsole(std::string message)
+{
+  std::cout << message << std::endl;
 }
