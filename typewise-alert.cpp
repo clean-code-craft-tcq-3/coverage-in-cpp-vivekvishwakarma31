@@ -45,7 +45,7 @@ void checkAndAlert(
 std::string sendToController(BreachType breachType) {
   const unsigned short header = 0xfeed;
   std::stringstream controllerMessage;
-  ss<<std::hex<<header<<" : "<<breachType;
+  controllerMessage<<std::hex<<header<<" : "<<breachType;
   return controllerMessage.str();
 }
 
