@@ -34,10 +34,10 @@ typedef struct {
 
 enum AlertStatus
 {
-  ALERT_NOT_SENT = 0
+  ALERT_NOT_SENT = 0,
   ALERT_HIGH_TEMPERATURE,
   ALERT_LOW_TEMPERATURE
-}
+};
 extern map<CoolingType, pair<int, int>> limit;
 
 AlertStatus checkAndAlert(
