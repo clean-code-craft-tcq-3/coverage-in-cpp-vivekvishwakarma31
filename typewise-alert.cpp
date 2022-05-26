@@ -40,7 +40,7 @@ AlertStatus checkAndAlert(
 
   BreachType breachType = classifyTemperatureBreach(batteryChar.coolingType, temperatureInC);
   AlertStatus alertstatus = (alertTarget == TO_CONTROLLER) ? sendToController(breachType) : sendToEmail(breachType, "a.b@c.com");
-  return AlertStatus;
+  return alertstatus;
 }
 
 AlertStatus sendToController(BreachType breachType) {
@@ -56,6 +56,9 @@ AlertStatus sendToController(BreachType breachType) {
       controllerMessage<<std::hex<<header<<" : "<<breachType;
       alertstatus = AlertStatus::ALERT_HIGH_TEMPERATURE;
       break;
+    default:
+     alertstatus = AlertStatus::ALERT_NOT_SENT;
+     break;
   }
   printOnConsole(controllerMessage.str());
   return alertstatus;
@@ -73,6 +76,9 @@ std::string emailMessage;
       emailMessage = "To: "+recepient+" .Hi, the temperature is too high";
       alertstatus = AlertStatus::ALERT_HIGH_TEMPERATURE;
       break;
+   default:
+     alertstatus = AlertStatus::ALERT_NOT_SENT;
+     break;
   }
  printOnConsole(emailMessage);
  return alertstatus;
