@@ -4,7 +4,7 @@
 #include <utility>
 #include <iterator>
 #include <map>
-#include <vector>
+using namespace std;
 
 typedef enum {
   PASSIVE_COOLING,
@@ -39,5 +39,5 @@ void checkAndAlert(
 std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType);
 
 std::string sendToController(BreachType breachType);
-std::string sendToEmail(BreachType breachType,std::string recepient));
+std::string sendToEmail(BreachType breachType,std::string recepient);
 void printOnConsole(std::string message);
