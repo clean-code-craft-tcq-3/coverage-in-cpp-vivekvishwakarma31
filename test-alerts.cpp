@@ -39,7 +39,7 @@ TEST_CASE("classifies Temperature Breach") {
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING,-1) == TOO_LOW);
 }
 
-TEST_CASE("Check and Alert based on cooling type)
+TEST_CASE("Check and Alert based on cooling type")
 {
   REQUIRE(checkAndAlert(TO_CONTROLLER,PASSIVE_COOLING,5) ==  ALERT_NOT_SENT);
   REQUIRE(checkAndAlert(TO_CONTROLLER,PASSIVE_COOLING,40) == ALERT_HIGH_TEMPERATURE);
