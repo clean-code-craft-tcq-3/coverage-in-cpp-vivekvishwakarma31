@@ -50,7 +50,7 @@ std::string sendToController(BreachType breachType) {
   return controllerMessage.str();
 }
 
-std::string sendToEmail(BreachType breachType, std::string recepient)) {
+std::string sendToEmail(BreachType breachType, std::string recepient) {
 std::string emailMessage;
   switch(breachType) {
     case TOO_LOW:
