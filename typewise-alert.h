@@ -32,13 +32,19 @@ typedef struct {
   char brand[48];
 } BatteryCharacter;
 
+enum AlertStatus
+{
+  ALERT_NOT_SENT = 0
+  ALERT_HIGH_TEMPERATURE,
+  ALERT_LOW_TEMPERATURE
+}
 extern map<CoolingType, pair<int, int>> limit;
 
-void checkAndAlert(
+AlertStatus checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType);
 
-std::string sendToController(BreachType breachType);
-std::string sendToEmail(BreachType breachType,std::string recepient);
+AlertStatus sendToController(BreachType breachType);
+AlertStatus sendToEmail(BreachType breachType,std::string recepient);
 void printOnConsole(std::string message);
