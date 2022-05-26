@@ -1,5 +1,12 @@
 #pragma once
 
+#include <string>
+#include <utility>
+#include <iterator>
+#include <map>
+#include <iostream>
+using namespace std;
+
 typedef enum {
   PASSIVE_COOLING,
   HI_ACTIVE_COOLING,
@@ -25,8 +32,19 @@ typedef struct {
   char brand[48];
 } BatteryCharacter;
 
-void checkAndAlert(
+enum AlertStatus
+{
+  ALERT_NOT_SENT = 0,
+  ALERT_HIGH_TEMPERATURE,
+  ALERT_LOW_TEMPERATURE
+};
+extern map<CoolingType, pair<int, int>> limit;
+
+AlertStatus checkAndAlert(
   AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
+std::pair<int, int> getTemperatureBreachValues(CoolingType coolingType);
+
+AlertStatus sendToController(BreachType breachType);
+AlertStatus sendToEmail(BreachType breachType,std::string recepient);
+void printOnConsole(std::string message);
