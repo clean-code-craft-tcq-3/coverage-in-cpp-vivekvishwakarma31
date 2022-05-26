@@ -4,6 +4,7 @@
 #include <utility>
 #include <iterator>
 #include <map>
+#include <iostream>
 using namespace std;
 
 typedef enum {
