@@ -1,5 +1,6 @@
 #include "typewise-alert.h"
 #include <stdio.h>
+#include <sstream>
 using namespace std;
  map<CoolingType, pair<int, int>> limit = { { CoolingType::PASSIVE_COOLING, { 0, 35 } },
 { CoolingType::HI_ACTIVE_COOLING, { 0, 45 } },
